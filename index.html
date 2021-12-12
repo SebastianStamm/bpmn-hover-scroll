@@ -1,0 +1,75 @@
+<head>
+  <script src="bpmn-viewer.js"></script>
+  <style>
+    body {
+      margin: auto;
+      width: 1100px;
+      font-family: sans-serif;
+      line-height: 1.5;
+    }
+
+    h1 {
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
+      line-height: 250%;
+    }
+
+    h3 {
+      background-color: lightgray;
+      font-weight: normal;
+      font-size: 1rem;
+      padding: 10px;
+    }
+
+    #diagram-container {
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>A simple flow in BPMN</h1>
+  <p>Let’s begin our BPMN tutorial with a rather simple process diagram:</p>
+
+  <div id="diagram-container"></div>
+
+  <p>
+    This diagram shows a simple process triggered by someone being hungry. The
+    result is that someone must shop for groceries and prepare a meal. After
+    that, someone will eat the meal and have his or her hunger satisfied.
+  </p>
+
+  <h3>Best Practice: Naming Conventions</h3>
+  <p>
+    When naming tasks, we try to adhere to the object-orientated design
+    principle of using the [verb] + [object] pattern. We would say “acquire
+    groceries,” for example, not “first take care of shopping for groceries.”
+  </p>
+  <p>
+    Events refer to something that has already happened regardless of the
+    process (if they are catching events) or as a result of the process (if they
+    are throwing events). For this reason, we use the [object] and make the
+    [verb] passive in voice, so we write “hunger noticed.” BPMN does not require
+    you to model start and end events for a process – you can leave them out –
+    but <b>if</b> you model a start event, you must model an end event for each
+    path. The same is true for end events, which require start events. We always
+    create our models with start and end events for two reasons: first, that way
+    it’s possible to determine the process trigger, and second, you can describe
+    the final status of each path end. We only sometimes abandon this practice
+    with sub-processes. More on this later.
+  </p>
+  <h1>Examples</h1>
+
+  <script>
+    (async () => {
+      const xml = await fetch("./complex.bpmn");
+
+      const viewer = new BpmnJS({
+        container: "#diagram-container",
+        additionalModules: [(await import("./bpmn-hover-scroll.js")).default],
+      });
+      await viewer.importXML(await xml.text());
+
+      viewer.get("canvas").zoom("fit-viewport");
+    })();
+  </script>
+</body>
