@@ -28,7 +28,7 @@
 </head>
 <body>
   <h1>A simple flow in BPMN</h1>
-  <p>Let’s begin our BPMN tutorial with a rather simple process diagram:</p>
+  <p>Let's begin our BPMN tutorial with a rather simple process diagram:</p>
 
   <div id="diagram-container"></div>
 
@@ -49,27 +49,15 @@
     process (if they are catching events) or as a result of the process (if they
     are throwing events). For this reason, we use the [object] and make the
     [verb] passive in voice, so we write “hunger noticed.” BPMN does not require
-    you to model start and end events for a process – you can leave them out –
+    you to model start and end events for a process - you can leave them out -
     but <b>if</b> you model a start event, you must model an end event for each
     path. The same is true for end events, which require start events. We always
     create our models with start and end events for two reasons: first, that way
-    it’s possible to determine the process trigger, and second, you can describe
+    it's possible to determine the process trigger, and second, you can describe
     the final status of each path end. We only sometimes abandon this practice
     with sub-processes. More on this later.
   </p>
   <h1>Examples</h1>
 
-  <script>
-    (async () => {
-      const xml = await fetch("./complex.bpmn");
-
-      const viewer = new BpmnJS({
-        container: "#diagram-container",
-        additionalModules: [(await import("./bpmn-hover-scroll.js")).default],
-      });
-      await viewer.importXML(await xml.text());
-
-      viewer.get("canvas").zoom("fit-viewport");
-    })();
-  </script>
+  <script type="module" src="index.js"></script>
 </body>
